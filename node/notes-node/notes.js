@@ -14,27 +14,38 @@ const fs = require('fs');
 // };
 // --------------------------------------------------------------------------------
 
+var fetchNotes = () => {
+	try {
+		var notesString = fs.readFileSync('notes-data.json');
+		return JSON.parse(notesString)
+	} catch (e) {
+		return [];
+	}
+};
+
+// function to save notes to JSON 
+var saveNotes = (notes) => {
+	fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+}
+
+
 // empty array, add to array, then write object to JSON
 var addNote = (title, body) => {
-	// console.log('Adding note', title, body);
-	var notes = [];
+	// get object and return string
+	var notes = fetchNotes();	
 	var note = {
 		title,
 		body
 	};
 
-	try {
-		var notesString = fs.readFileSync('notes-data.json');
-		notes = JSON.parse(notesString)
-	} catch (e) {
-
-	}
-
+	// check for duplicate attributes in notes object
 	var duplicateNotes = notes.filter((note) => note.title === title);
 
+	// add attribute if none found in notes object
 	if (duplicateNotes.length === 0) {
 		notes.push(note);
-		fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+		saveNotes(notes);
+		return note;
 	}
 };
 

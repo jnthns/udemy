@@ -1,6 +1,8 @@
 console.log('Starting app.');
 
 const fs = require('fs');
+
+// npm install lodash, yargs
 const _ = require('lodash');
 const yargs = require('yargs');
 
@@ -31,8 +33,15 @@ console.log('Yargs', argv);
 // `node app.js add --title 'big secrets' adds title:secrets as key:value to process. can be updated by changing 'big secrets' to any other string
 
 if (command == 'add') {
-	console.log('adding new note');
-	notes.addNote(argv.title, argv.body);
+	var note = notes.addNote(argv.title, argv.body);
+	if (note) {
+		console.log('Note created');
+		console.log('--');
+		console.log('Title: ' + note.title);
+		console.log('Title: ' + note.body);	
+	} else {
+		console.log('Note title taken');
+	}
 } else if (command == 'list') {
 	notes.getAll();
 	console.log('Listing all notes');
