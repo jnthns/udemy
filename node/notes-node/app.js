@@ -1,4 +1,6 @@
 const fs = require('fs');
+
+// npm install lodash, yargs
 const _ = require('lodash');
 const yargs = require('yargs');
 
@@ -73,6 +75,25 @@ if (command === 'add') {
 	var noteRemoved = notes.removeNote(argv.title);
 	var message = noteRemoved ? 'Note was removed' : 'Note not found';
 	console.log(message);
+if (command == 'add') {
+	var note = notes.addNote(argv.title, argv.body);
+	if (note) {
+		console.log('Note created');
+		console.log('--');
+		console.log('Title: ' + note.title);
+		console.log('Title: ' + note.body);	
+	} else {
+		console.log('Note title taken');
+	}
+} else if (command == 'list') {
+	notes.getAll();
+	console.log('Listing all notes');
+} else if (command == 'read') {
+	notes.getNote(argv.title);
+	console.log('Reading not es');
+} else if (command == 'remove') {
+	console.log('Removing notes');
+	notes.removeNote(argv.title);
 } else {
 	console.log('Command not recognized');
 }

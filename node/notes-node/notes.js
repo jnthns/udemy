@@ -29,13 +29,25 @@ var saveNotes = (notes) => {
 var addNote = (title, body) => {
 	// console.log('Adding note', title, body);
 	var notes = fetchNotes();
+// function to save notes to JSON 
+var saveNotes = (notes) => {
+	fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+}
+
+
+// empty array, add to array, then write object to JSON
+var addNote = (title, body) => {
+	// get object and return string
+	var notes = fetchNotes();	
 	var note = {
 		title,
 		body
 	};
 
+	// check for duplicate attributes in notes object
 	var duplicateNotes = notes.filter((note) => note.title === title);
 
+	// add attribute if none found in notes object
 	if (duplicateNotes.length === 0) {
 		notes.push(note);
 		saveNotes(notes);
