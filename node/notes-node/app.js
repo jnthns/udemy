@@ -3,10 +3,9 @@ const fs = require('fs');
 // npm install lodash, yargs
 const _ = require('lodash');
 const yargs = require('yargs');
-
+// const os = require('os');
 const notes = require('./notes.js');
 
-// // EXPORT function from notes.js
 // var sum = notes.addSum(9,-2);
 // console.log(sum);
 
@@ -49,7 +48,7 @@ const argv = yargs
 	.help()
 	.argv;
 var command = process.argv[2]; // == argv._[0]
-// `node app.js add --title 'big secrets' adds title:secrets as key:value to process. can be updated by changing 'big secrets' to any other string
+// `node app.js add --title 'big secrets' adds title:big secrets as key:value to process. can be updated by changing 'big secrets' to any other string
 
 if (command === 'add') {
 	var note = notes.addNote(argv.title, argv.body);
