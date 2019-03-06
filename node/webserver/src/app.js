@@ -1,6 +1,11 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
+const forecast = require('./utils/forecast')
+const geocode = require('./utils/geocode')
+
+// start app with node(mon) src/app.js -e js,hbs 
+// -e = extension flag
 
 // current directory
 console.log(__dirname)
@@ -24,7 +29,7 @@ app.use(express.static(publicDirectoryPath))
 
 app.get('', (req, res) => {
     res.render('index', {
-        title: 'Weather App',
+        title: 'Weather',
         name: 'Jonathan Shek'
     })
 })
@@ -46,9 +51,43 @@ app.get('/help', (req,res) => {
 
 // app.com/weather
 app.get('/weather', (req, res) => {
-    res.send({
-        forecast: 'Heavy mist',
-        location: 'Sunset'
+    if (!req.query.address) {
+        return res.send({
+            error: 'You must provide an address'
+        })
+    } 
+    
+    geocode(req.query.address, (error, {latitude, longitude, location } = {}) => {
+        // empty object so that undefined values aren't passed 
+        // if error exists, return error message, do nothing else
+        if (error) {
+            return res.send({ error })
+        }
+        // if values exist for lat,lng continue function
+        forecast(latitude,longitude, (error, forecastData) => {
+            if (error) {
+                return res.send({ error })
+            }
+
+            res.send({
+                forecast: forecastData,
+                location,
+                address: req.query.address
+            })
+        })
+    })
+})
+
+app.get('/products', (req, res) => {
+    if (!req.query.search) {
+        return res.send({
+            error: 'You must provide a search term'
+        })
+    }
+
+    console.log(req.query)
+    res.send({ 
+        products:[]
     })
 })
 
