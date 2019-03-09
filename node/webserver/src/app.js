@@ -44,7 +44,7 @@ app.get('/about', (req,res) => {
 app.get('/help', (req,res) => {
     res.render('help', {
         title: 'Help',
-        message: 'This is the Help Page.',
+        message: 'This weather app was built with Node.js\'s express and handlebars libraries. The weather data is fetched from the Darksky API and the location data is fetched from Mapbox.',
         name: 'Jonathan Shek'
     })
 })
