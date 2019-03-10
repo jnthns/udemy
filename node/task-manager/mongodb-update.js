@@ -11,16 +11,30 @@ MongoClient.connect(connectionURL, {useNewUrlParser: true}, (error, client) => {
 
     const db = client.db(databaseName)
 
-    const updatePromise = db.collection('users').updateOne({
-        _id: new ObjectID('5c842de0e9bc3c6ad4d9af28')
+    // node mongodb documentation 
+
+    // updateOne
+    // filter, update, callback/promise if no callback is provided
+    db.collection('users').updateOne({
+        _id: new ObjectID('5c842de0e9bc3c6ad4d9af28') // filter
     }, {
-        $set: {
-            name: 'Mike'
+        $set: { // update
+            name: 'Jon'
         }
+    }).then((result) => { // callback/promise
+        console.log(result)
+    }).catch((error) => {
+        console.log(error)
     })
 
-    updatePromise.then((result) => {
-        console.log(result)
+    db.collection('ballers').updateMany({
+        leaving: true // filter
+    }, {
+        $set: { // update
+            leaving: false
+        }
+    }).then((result) => { // callback/promise
+        console.log(result.modifiedCount)
     }).catch((error) => {
         console.log(error)
     })
