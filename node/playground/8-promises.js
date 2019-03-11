@@ -7,4 +7,7 @@ const doWorkPromise = new Promise((resolve, reject) => {
 // .then() allows us to continue a function if it succeeds
 doWorkPromise.then((result) => {
     console.log('Success!', result)
+}).catch((error) => {
+    console.log('Error!', error)
 })
+
