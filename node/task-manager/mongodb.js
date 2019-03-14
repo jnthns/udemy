@@ -10,6 +10,9 @@ const { MongoClient, ObjectID } = require('mongodb')
 
 // Connect to MongoDB
 // /Users/jonathanshek/mongodb/bin/mongod --dbpath=/Users/jonathanshek/mongodb-data
+// Kill MongoDB
+// mongo admin --eval "db.shutdownServer()"
+
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
 

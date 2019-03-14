@@ -1,13 +1,16 @@
+// Connect to MongoDB with Mongoose
+
 const mongoose = require('mongoose')
 
 mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 })
 
 // /Users/jonathanshek/mongodb/bin/mongod --dbpath=/Users/jonathanshek/mongodb-data
 
-// Create user example
+// Create user example with .save() then promise
 
 // const me = new User({
 //     name: 'Jigglypuff',
